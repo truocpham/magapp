@@ -32,9 +32,9 @@
     <%= f.input :content, :as => :rich, :config => { :width => '76%', :height => '300px' } %>
     <%= f.input :mark, :as => :number, :min => 0 %>
     <% if params[:action] == 'new' && params[:type_question] == nil %>
-    <%= f.input :type_question, :as => :select, :collection => ["One correct answer", "More correct answers", "Open answer"], :selected => 'One correct answer' %>
+    <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"], :selected => 'Single choice' %>
     <% else %>
-      <%= f.input :type_question, :as => :select, :collection => ["One correct answer", "More correct answers", "Open answer"] %>
+      <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"] %>
     <% end %>
 
     <li class="input required">
@@ -88,7 +88,7 @@
               <% if k > 0 %>
               <a href='javascript:void(0);' id='<%= link_answer_name[k] %>'>Remove this answer</a><br />
               <% end %>
-              <% if (params["question"] == nil && params[:action] == 'new') || (params["question"] != nil && params["question"].fetch("type_question") != "Open answer") %>
+              <% if (params["question"] == nil && params[:action] == 'new') || (params["question"] != nil && params["question"].fetch("type_question") != "Open answer") || (params[:action] == 'edit' && @question.type_question != "Open answer")%>
                 <input class="rad_answer" type='radio' name='<%= rad_name[k] %>' value='0' <%= checked if rad_value[k] == '0' %> />&nbsp;Incorrect&nbsp;
                 <input type='radio' name='<%= rad_name[k] %>' value='1' <%= checked if rad_value[k] == '1' %> />&nbsp;Correct&nbsp;<br />
               <% end %>

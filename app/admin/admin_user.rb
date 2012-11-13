@@ -1,7 +1,7 @@
 ActiveAdmin.register AdminUser do 
 
   config.per_page = 20
-  menu :priority => 2
+  menu :priority => 2, :label => "Users"
   
   index do           
     selectable_column                 

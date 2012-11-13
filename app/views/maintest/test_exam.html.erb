@@ -35,10 +35,10 @@
 		<% name_q = a['question'].insert(3, "<strong>" + i.to_s + ") </strong>") %>
 		<%= a['question'].html_safe %>
 		<% a['answer'].each do |key, value| %>
-			<% if a['type_question'] == "One correct answer" %>
+			<% if a['type_question'] == "Single choice" %>
 				<%= radio_button_tag a['id'], key %> 
 				<%= value %>
-			<% elsif a['type_question'] == "More correct answers" %>
+			<% elsif a['type_question'] == "Multiple choices" %>
 				<%= check_box_tag "#{a['id']}[]", key %>
 				<%= value %>
 			<% elsif a['type_question'] == "Open answer" %>

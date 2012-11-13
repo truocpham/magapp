@@ -5,7 +5,7 @@ ActiveAdmin.register Userexam do
  #  end
 
   actions :all, :except => [:new, :edit]
-  menu :priority => 8, :label => "Candidate's Exams"
+  menu :priority => 8, :label => "Resolves"
 
   filter :exam
   filter :name
