@@ -1,0 +1,10 @@
+<h2 id="login">Please Choose Subject</h2>
+<% if flash[:alert] %>
+	<p class="text-error"><%= flash[:alert]%></p>
+<% end %>
+<ul>
+	<% @subjects.each do |s| %>
+	<li><%= link_to "#{s.name}", {:controller => "maintest", :action => "choose_category", :id => "#{s.id}"} %></li>
+	<% end %>
+</ul>
+<%= link_to 'Logout', "/sessions/destroy", {:method => :delete, :id => 'logout'} %>

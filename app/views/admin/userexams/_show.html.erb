@@ -1,0 +1,17 @@
+The tmp_point is: <%= @point.tmp_point %>
+<br /><br />
+<%= form_tag :controller => "admin/userexams", :action => "get_sum" do %>
+  <%= hidden_field_tag "point", @point.tmp_point %>
+  <%= hidden_field_tag "id", @point.id %>
+
+  <% @arr_urs_answer.each do |a| %>
+    <% name_q = a['content'].insert(3, "<strong>Question: </strong>") %>
+    <%= name_q.html_safe %>
+    <strong>user's answer: </strong><%= a['con_answer'] %><br />
+    <b>Answer: </b><%= a['answer'] %><br />
+    <%= radio_button_tag a['question_id'], "1"  %> Correct &nbsp;&nbsp;&nbsp;
+    <%= radio_button_tag a['question_id'], "0", true  %> Incorrect
+    <br /><br />
+  <% end %>
+  <%= submit_tag "submit" %>
+<% end %>

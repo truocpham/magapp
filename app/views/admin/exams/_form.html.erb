@@ -1,0 +1,34 @@
+<%= semantic_form_for [:admin, @exam] do |f| %>
+
+  <%= f.inputs :name => "Exam Details" do %>
+  <li class="select input option">
+    <%= label_tag :subject_id, "Subject", :class => " label" %>
+    <% if params[:subject] != nil && params[:subject]['id'] != ''
+        @subject = Subject.new
+        @subject.id = params[:subject]['id'].to_i
+        @categories = Category.where('subject_id = ?', @subject.id)
+      elsif params[:action] == 'edit'
+        @categories = Category.where('subject_id = ?', @subject.id)
+      else 
+        @categories = []
+       %>
+    <% end %>
+    <%= collection_select(:subject, :id, Subject.all, :id, :name, {:prompt => "Select Subject"}) %>
+  </li>
+
+    <%= f.input :category, :as => :select, :collection => @categories, :prompt => "Select Category" %>
+    <%= f.input :name %>
+    <% if params[:action] != 'edit' && params[:action] != 'update' %>
+      <%= f.input :on_answer, :label => "No. of \"One correct answer\"", :as => :number %>
+      <%= f.input :m_answer, :label => "No. of \"More correct answers\"", :as => :number %>
+      <%= f.input :o_answer, :label => "No. of \"Open answer\"", :as => :number %>
+      <%= f.input :q_user, :label => "No. of candidates", :as => :number %>
+    <% end %>
+    <%= f.input :time_exam, :label => "Time Exam (minutes)" %>
+    <%= f.input :description %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+    <%= f.action :cancel, :wrapper_html => { :class => "cancel" }, :label => "Cancel" %>
+  <% end %>
+<% end %>

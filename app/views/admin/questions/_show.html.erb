@@ -1,0 +1,62 @@
+<%
+	id = @question.id
+	content = @question.content.html_safe
+	mark = @question.mark
+	type = @question.type_question
+	category = @question.category.name
+	link_category = link_to(category, "/admin/categories/" + @question.category.id.to_s)
+	created_at = @question.created_at.strftime("%B %d, %Y %H:%M")
+	updated_at = @question.updated_at.strftime("%B %d, %Y %H:%M")
+	answers = @question.answers
+%>
+        
+<div class="panel">
+  <h3>Question Details</h3>
+  <div class="panel_contents">
+    <div class="attributes_table exam" id="attributes_table_exam_11">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th>Id</th>
+          <td><%= id %></td>
+        </tr>
+        <tr>
+          <th>Content</th>
+          <td><%= content %></td>
+        </tr>
+        <% answers.each do |answer| 
+        	 	if answer.mark_type != 0
+        	 	 answer_t = "Answer (True)"
+        	 	else
+        	 		answer_t = "Answer"
+        	 	end
+        	%>
+        <tr>
+          <th><%= answer_t %></th>
+          <td><%= answer.content %></td>
+        </tr>
+        <% end %>
+        <tr>
+          <th>Mark</th>
+          <td><%= mark %></td>
+        </tr>
+        <tr>
+          <th>Type Question</th>
+          <td><%= type %></td>
+        </tr>
+        <tr>
+          <th>Category</th>
+          <td><%= link_category %></td>
+        </tr>
+        <tr>
+          <th>Created At</th>
+          <td><%= created_at %></td>
+        </tr>
+        <tr>
+          <th>Updated At</th>
+          <td><%= updated_at %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+      

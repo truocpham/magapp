@@ -1,0 +1,6 @@
+<h2 id="login">Please Choose Exam</h2>
+<ul>
+	<% @exams.each do |e| %>
+	<li><%= link_to "#{e.name}", {:controller => "maintest", :action => "test_exam", :id => "#{e.hashid}"} %></li>
+	<% end %>
+</ul>

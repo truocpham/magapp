@@ -1,0 +1,66 @@
+<div class="panel">
+  <h3>Exam Details</h3>
+  <div class="panel_contents">
+    <div class="attributes_table user" id="attributes_table_user_2">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th>Id</th>
+          <td><%= @userexam.id %></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td><%= @userexam.name %></td>
+        </tr>
+        <tr>
+          <th>Exam</th>
+          <td><%= @userexam.exam.name %></td>
+        </tr>
+        <tr>
+          <th>Password</th>
+          <td><%= @userexam.password %></td>
+        </tr>
+        <tr>
+          <th>Temp Point</th>
+          <td><%= @userexam.tmp_point %></td>
+        </tr>
+        <tr>
+          <th>Sum Point</th>
+          <td><%= @userexam.sum_point %></td>
+        </tr>
+        <tr>
+          <th>Time Start</th>
+          <td>
+            <% if @userexam.time_start != nil %>
+            <%= @userexam.time_start.localtime.strftime("%d/%m/%Y %H:%M:%S") %>
+            <% else %>
+            <%= @userexam.time_start %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>Time End</th>
+          <td>
+            <% if @userexam.time_end != nil %>
+            <%= @userexam.time_end.localtime.strftime("%d/%m/%Y %H:%M:%S") %>
+            <% else %>
+            <%= @userexam.time_end %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>Note</th>
+          <td><%= @userexam.note %></td>
+        </tr>
+        <tr>
+          <th>Created At</th>
+          <td><%= @userexam.created_at %></td>
+        </tr>
+        <tr>
+          <th>Updated At</th>
+          <td><%= @userexam.updated_at %></td>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<h2 id="login">Please Choose Category</h2>
+
+<ul>
+	<% @categories.each do |c| %>
+	<li><%= link_to "#{c.name}", {:controller => "maintest", :action => "choose_exam", :id => "#{c.id}"} %></li>
+	<% end %>
+</ul>

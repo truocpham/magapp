@@ -1,0 +1,25 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1352799520.468223:@value"≠
+[I"ü
+/*
+ * @file Audio plugin for CKEditor
+ * Copyright (C) 2012 J. Scott Hepler, based on work by
+ * Copyright (C) 2011 Alfonso Mart√≠nez de Lizarrondo
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ */
+CKEDITOR.plugins.add("audio",{lang:["en"],init:function(e){var t=e.lang.audio;if(typeof e.element.data=="undefined"){alert('The "audio" plugin requires CKEditor 3.5 or newer');return}CKEDITOR.dialog.add("audio",this.path+"dialogs/audio.js"),e.addCommand("Audio",new CKEDITOR.dialogCommand("audio")),e.ui.addButton("Audio",{label:t.toolbar,command:"Audio",icon:this.path+"images/icon.png"}),e.addCss("img.cke_audio{background-image: url("+CKEDITOR.getUrl(this.path+"images/placeholder.png")+");"+"background-position: center center;"+"background-repeat: no-repeat;"+"background-color:gray;"+"border: 1px solid #a9a9a9;"+"width: 80px;"+"height: 80px;"+"}"),e.addMenuItems&&e.addMenuItems({audio:{label:t.properties,command:"Audio",group:"flash"}}),e.on("doubleclick",function(e){var t=e.data.element;t.is("img")&&t.data("cke-real-element-type")=="audio"&&(e.data.dialog="audio")}),e.contextMenu&&e.contextMenu.addListener(function(e,t){if(e&&e.is("img")&&!e.isReadOnly()&&e.data("cke-real-element-type")=="audio")return{audio:CKEDITOR.TRISTATE_OFF}}),CKEDITOR.dtd.$empty["cke:source"]=1,CKEDITOR.dtd.$empty.source=1,e.lang.fakeobjects.audio=t.fakeObject},afterInit:function(e){var t=e.dataProcessor,n=t&&t.htmlFilter,r=t&&t.dataFilter;r.addRules({elements:{$:function(t){if(t.name=="audio"){t.name="cke:audio";var n=e.createFakeParserElement(t,"cke_audio","audio",!1),r=n.attributes.style||"",i=t.attributes.width,s=t.attributes.height,o=t.attributes.poster;return typeof i!="undefined"&&(r=n.attributes.style=r+"width:"+CKEDITOR.tools.cssLength(i)+";"),typeof s!="undefined"&&(r=n.attributes.style=r+"height:"+CKEDITOR.tools.cssLength(s)+";"),n}}}})}}),CKEDITOR.plugins.setLang("audio","en",{audio:{toolbar:"Audio",dialogTitle:"Audio properties",fakeObject:"Audio",properties:"Edit audio",widthRequired:"Width field cannot be empty",heightRequired:"Height field cannot be empty",poster:"Poster image",sourceAudio:"Source audio",sourceType:"Audio type",linkTemplate:'<a href="%src%">%type%</a> ',fallbackTemplate:"Your browser doesn't support audio.<br>Please download the file: %links%"}});:ET

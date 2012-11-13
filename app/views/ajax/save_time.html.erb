@@ -1,0 +1,18 @@
+<% mins = session[:mins].to_i %>
+<% secs = session[:secs].to_i %>
+<% 
+	if mins < 10
+		mins_str = "0" + mins.to_s
+	else
+		mins_str = mins.to_s
+	end
+
+	if secs < 10
+		secs_str = "0" + secs.to_s
+	else
+		secs_str = secs.to_s
+	end
+%>
+<%= mins_str %>:<%= secs_str %>
+<%= session.inspect %><br />
+<%= session[:session_id] %>

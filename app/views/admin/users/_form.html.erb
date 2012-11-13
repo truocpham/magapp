@@ -1,0 +1,13 @@
+<%= semantic_form_for [:admin, @user] do |f| %>
+
+  <%= f.inputs :name => "User Details" do %>
+
+    <%= f.input :name %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+    <%= f.action :cancel, :wrapper_html => { :class => "cancel" }, :label => "Cancel" %>
+  <% end %>
+<% end %>

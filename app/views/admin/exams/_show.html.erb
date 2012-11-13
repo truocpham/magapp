@@ -1,0 +1,45 @@
+<div class="panel">
+  <h3>Exam Details</h3>
+  <div class="panel_contents">
+    <div class="attributes_table user" id="attributes_table_user_2">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th>Id</th>
+          <td><%= @exam.id %></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td><%= @exam.name %></td>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td><%= @exam.description %></td>
+        </tr>
+          <th>Created At</th>
+          <td><%= @exam.created_at %>4</td>
+        </tr>
+        <tr>
+          <th>Updated At</th>
+          <td><%= @exam.updated_at %></td>
+        </tr>
+        <tr>
+          <th>Hash Id</th>
+          <td><%= @exam.hashid %></td>
+        </tr>
+        <tr>
+          <th>All questions</th>
+          <td>
+            <%
+              examquestion = Examquestion.where("exam_id = ?", @exam.id)
+              count = 1
+              examquestion.each do |eq| %>
+                <% name_q = eq.question.content.insert(3, "<strong>" + count.to_s + ")</strong>") %>
+                <%= name_q.html_safe %> <br />
+                <% count += 1 %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

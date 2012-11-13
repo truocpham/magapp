@@ -1,0 +1,55 @@
+<% time = @exam.time_exam %>
+<script type="text/javascript">
+	function cd() {
+	  if (getCookie("finish") == null) {
+	     mins = <%= time %>;
+	     secs = "0";	   
+	  } else {
+	     mins = "0";
+	     secs = "1";
+	  }
+
+	  redo();
+	}
+
+	window.onload = cd;	
+
+</script>
+
+<h2 id="login"><%= @exam.name %></h2>
+<center><p><%= @exam.description %></p></center><br />
+
+<span class="time">
+  <form name="cd">
+    <input id="txt" readonly="true" type="text" value="" border="0" name="disp" />
+  </form>
+</span>
+
+<%= form_tag(:controller => "maintest", :action => "get_point") do %>
+	<%= hidden_field_tag "hashid", params[:hashid] %>
+	<%= hidden_field_tag "id", @userexam.id %>
+
+	<% i = 0 %>  
+	<% @arr.each do |a| %>
+		<% i += 1 %>
+		<% name_q = a['question'].insert(3, "<strong>" + i.to_s + ") </strong>") %>
+		<%= a['question'].html_safe %>
+		<% a['answer'].each do |key, value| %>
+			<% if a['type_question'] == "One correct answer" %>
+				<%= radio_button_tag a['id'], key %> 
+				<%= value %>
+			<% elsif a['type_question'] == "More correct answers" %>
+				<%= check_box_tag "#{a['id']}[]", key %>
+				<%= value %>
+			<% elsif a['type_question'] == "Open answer" %>
+				<%= text_field_tag a['id'], "", {:class => "input-xxlarge", :placeholder => "Write your answer"} %>
+			<% end %>
+			<br />
+		<% end %>
+		<br />
+	<% end %>
+	<div class="actions">
+    	<%= submit_tag "Submit", {:class => "btn btn-primary", :onclick => "return des()"} %>
+  	</div>
+
+<% end %>

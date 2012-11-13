@@ -1,0 +1,110 @@
+<%
+  # count answer when loading page
+  if params[:answer] != nil
+    count = params[:answer].length
+  elsif params[:action] == 'edit'
+    count = @question.answers.length
+  else
+    count = 1
+  end
+
+%>
+<br />
+<%= semantic_form_for [:admin, @question] do |f| %>
+  <%= error_messages_for :answer %><br />
+  <%= f.inputs :name => "Question Details" do %>
+  <li class="select input option">
+  	<%= label_tag :subject_id, "Subject", :class => " label" %>
+    <% if params[:subject] != nil && params[:subject]['id'] != ''
+        @subject = Subject.new
+        @subject.id = params[:subject]['id'].to_i
+        @categories = Category.where('subject_id = ?', @subject.id)
+      elsif params[:action] == 'edit'
+        @categories = Category.where('subject_id = ?', @subject.id)
+      else 
+        @categories = []
+       %>
+    <% end %>
+    <%= collection_select(:subject, :id, Subject.all, :id, :name, {:prompt => "Select Subject"}) %>
+  </li>
+
+    <%= f.input :category, :as => :select, :collection => @categories, :prompt => "Select Category" %>
+    <%= f.input :content, :as => :rich, :config => { :width => '76%', :height => '300px' } %>
+    <%= f.input :mark, :as => :number, :min => 0 %>
+    <% if params[:action] == 'new' && params[:type_question] == nil %>
+    <%= f.input :type_question, :as => :select, :collection => ["One correct answer", "More correct answers", "Open answer"], :selected => 'One correct answer' %>
+    <% else %>
+      <%= f.input :type_question, :as => :select, :collection => ["One correct answer", "More correct answers", "Open answer"] %>
+    <% end %>
+
+    <li class="input required">
+      <div id="answer" class="field">
+
+      <%  area_value = Array.new
+          rad_name = Array.new
+          rad_value = Array.new
+          link_answer_name = Array.new
+          answer_name = Array.new
+
+          for i in 1 .. count
+            if params[:answer] == nil && params[:action] == 'edit'
+                area_value[i - 1] = (@question.answers)[i - 1].content
+            elsif params[:answer] != nil
+                area_value[i - 1] = params[:answer][i - 1]['content']
+            else
+                area_value[i - 1] = ""
+            end
+
+            rad_name[i - 1] = 'answer_rad[][c_mark_type' + i.to_s + ']'
+            link_answer_name[i - 1] = "link_answer" + (i - 1).to_s;
+            answer_name[i - 1] = "answer" + (i - 1).to_s;
+          end
+          
+          if params[:answer] == nil && params[:action] =='edit'
+            for j in 0 ... count
+              rad_value[j] = (@question.answers)[j].mark_type.to_s
+            end
+          elsif params[:answer] != nil
+            j = 0
+            if params[:answer_rad] != nil
+              params[:answer_rad].each do |ar|
+                ar.each do |key, value| 
+                  rad_value[j] = value
+                  j += 1
+                end 
+              end
+            end
+          else
+            rad_value[0] = '0'
+          end
+
+          checked = 'checked = "true"'
+
+          for k in 0 ... count
+          %>
+            <div id = "<%= answer_name[k] %>">
+              <label class=" label">Answer<abbr title="required">*</abbr></label>
+              <textarea class="answer_content" rows="10" name='answer[][content]'><%= area_value[k] %></textarea>
+              <% if k > 0 %>
+              <a href='javascript:void(0);' id='<%= link_answer_name[k] %>'>Remove this answer</a><br />
+              <% end %>
+              <% if (params["question"] == nil && params[:action] == 'new') || (params["question"] != nil && params["question"].fetch("type_question") != "Open answer") %>
+                <input class="rad_answer" type='radio' name='<%= rad_name[k] %>' value='0' <%= checked if rad_value[k] == '0' %> />&nbsp;Incorrect&nbsp;
+                <input type='radio' name='<%= rad_name[k] %>' value='1' <%= checked if rad_value[k] == '1' %> />&nbsp;Correct&nbsp;<br />
+              <% end %>
+            </div>
+        <% end %>
+      </div>
+    </li>
+      <% if (params["question"] == nil && params[:action] == 'new') || (params["question"] != nil && params["question"].fetch("type_question") != "Open answer") %>
+      <a href='javascript:void(0);' id='add_new_answer' >Add new answer</a><br />
+      <% else %>
+      <a href='javascript:void(0);' id='add_new_answer' class="hide-add-answer">Add new answer</a><br />
+      <% end %>
+  <% end %>
+  
+  <%= f.actions do %>
+      <%= f.action :submit, :as => :input %>
+      <%= f.action :cancel, :wrapper_html => { :class => "cancel" }, :label => "Cancel" %>
+    <% end %>
+<% end %>
