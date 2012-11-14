@@ -32,7 +32,8 @@
 	<% i = 0 %>  
 	<% @arr.each do |a| %>
 		<% i += 1 %>
-		<% name_q = a['question'].insert(3, "<strong>" + i.to_s + ") </strong>") %>
+		<% a['question'].insert(-7, " &nbsp;&nbsp;(<b>" + a['type_question'] + "</b>)") %>
+		<% a['question'].insert(3, "<strong>" + i.to_s + ") </strong>") %>
 		<%= a['question'].html_safe %>
 		<% a['answer'].each do |key, value| %>
 			<% if a['type_question'] == "Single choice" %>

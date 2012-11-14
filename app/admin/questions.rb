@@ -5,32 +5,40 @@ ActiveAdmin.register Question do
   index do     
     selectable_column                       
     column :content do |q|
-      (q.content)[0,200]
+      strip_tags(q.content)
     end                  
     column :mark        
     column :type_question           
-    column :created_at
-    column :updated_at             
     default_actions                   
   end
 
-  menu :priority => 5
+  menu :priority => 5  
+
+  collection_action :index, :method => :get do
+      scope = Question.getByLastCategory
+
+      @collection = scope.page() if params[:q].blank?
+      @search = scope.metasearch(clean_search_params(params[:q]))
+      @search.category_id_eq = Category.last.id if params[:q].blank?
+
+      # respond_to do |format|
+      #   format.html {
+      #     render "my/own/template" # or "active_admin/resource/index"
+      #   }
+      # end
+  end
 
   show do
-    @question = Question.find(params[:id])
-    render 'show'
+      @question = Question.find(params[:id])
+      render 'show'
   end
 
 	controller do
 
 		def new
-			@question = Question.new
+			@question = Question.new(:mark => 1)
 			@answer = Answer.new			
 		end
-
-    # def show
-    #   @question = Question.find(params[:id])
-    # end
 
     def edit
       @question = Question.find(params[:id])
@@ -149,6 +157,10 @@ ActiveAdmin.register Question do
     end
 
 	end
+
+  action_item :only => :show do
+    link_to "New Question", new_admin_question_path
+  end
 
   form :partial => "form"
 end

@@ -29,7 +29,7 @@
   </li>
 
     <%= f.input :category, :as => :select, :collection => @categories, :prompt => "Select Category" %>
-    <%= f.input :content, :as => :rich, :config => { :width => '76%', :height => '300px' } %>
+    <%= f.input :content, :as => :rich, :config => { :width => '78%', :height => '300px' } %>
     <%= f.input :mark, :as => :number, :min => 0 %>
     <% if params[:action] == 'new' && params[:type_question] == nil %>
     <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"], :selected => 'Single choice' %>
@@ -82,6 +82,7 @@
 
           for k in 0 ... count
           %>
+            <%= "<br /><br />".html_safe if params[:action] == "edit" and k != 0 %>
             <div id = "<%= answer_name[k] %>">
               <label class=" label">Answer<abbr title="required">*</abbr></label>
               <textarea class="answer_content" rows="10" name='answer[][content]'><%= area_value[k] %></textarea>

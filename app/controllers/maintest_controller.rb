@@ -64,8 +64,8 @@ class MaintestController < HomeController
         params.each do |key, value|
           question = Question.select("mark, type_question").where("id = ?", key)
 
-          # trac nghiem 2
-          if question[0].type_question == "More correct answers"
+          # Multiple choices
+          if question[0].type_question == "Multiple choices"
 
             value.join(",")
             answer = Answer.select("mark_type").where("id in (?)", value)
@@ -79,7 +79,7 @@ class MaintestController < HomeController
               end
             end
 
-          # cau hoi mo
+          # Open answer
           elsif question[0].type_question == "Open answer"
             check_open = true
             answer = Answer.joins(:question)
@@ -92,7 +92,7 @@ class MaintestController < HomeController
             tmpanswer.con_answer = value
             tmpanswer.save
 
-          # trac nghiem 1  
+          # Single choice
           else 
             answer = Answer.select("mark_type").where("id = ?", value)
             if answer[0] != nil && answer[0].mark_type == 1
@@ -111,15 +111,15 @@ class MaintestController < HomeController
         time_finish = time_test - (exam.time_exam * 60)
         time_to_min = (time_finish / 60).floor
         if (time_to_min > 0)
-          flash_alert = 'You have completed this test. But you are ' + time_to_min.to_s + ' minute(s) late!'
+          flash_alert = 'You have completed. But you are ' + time_to_min.to_s + ' minute(s) late!'
           userexam.update_attributes({ "tmp_point" => point, "time_end" => time_end, "note" => time_to_min.to_s + " minute(s) late!" })
         else
-          flash_alert = 'You have completed this test on time!'
-          userexam.update_attributes({ "tmp_point" => point, "time_end" => time_end, "note" => "OK. Completed this test on time!" })
+          flash_alert = 'You have completed on time!'
+          userexam.update_attributes({ "tmp_point" => point, "time_end" => time_end, "note" => "Completed on time!" })
         end
       else
-        userexam.update_attributes({ "tmp_point" => point, "time_end" => time_end, "note" => "OK. Completed this test on time!" })
-        flash_alert = 'You have completed this test on time!'
+        userexam.update_attributes({ "tmp_point" => point, "time_end" => time_end, "note" => "Completed on time!" })
+        flash_alert = 'You have completed on time!'
       end
       session[:username] = nil
       session[:password] = nil

@@ -19,8 +19,8 @@
     <%= f.input :category, :as => :select, :collection => @categories, :prompt => "Select Category" %>
     <%= f.input :name %>
     <% if params[:action] != 'edit' && params[:action] != 'update' %>
-      <%= f.input :on_answer, :label => "No. of \"One correct answer\"", :as => :number %>
-      <%= f.input :m_answer, :label => "No. of \"More correct answers\"", :as => :number %>
+      <%= f.input :on_answer, :label => "No. of \"Single choice\"", :as => :number %>
+      <%= f.input :m_answer, :label => "No. of \"Multiple choices\"", :as => :number %>
       <%= f.input :o_answer, :label => "No. of \"Open answer\"", :as => :number %>
       <%= f.input :q_user, :label => "No. of candidates", :as => :number %>
     <% end %>

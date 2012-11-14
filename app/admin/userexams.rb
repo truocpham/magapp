@@ -4,12 +4,13 @@ ActiveAdmin.register Userexam do
  #    "Need help? Email us at help@example.com"
  #  end
 
+ config.per_page = 20
+
   actions :all, :except => [:new, :edit]
-  menu :priority => 8, :label => "Resolves"
+  menu :priority => 8, :label => "Results", :parent => "Exams"
 
   filter :exam
   filter :name
-  filter :tmp_point
   filter :sum_point
   filter :note
   filter :created_at
@@ -19,14 +20,13 @@ ActiveAdmin.register Userexam do
     selectable_column                           
     column :name
     column "Exam" do |userexam|
-      exam = link_to userexam.exam.id, admin_exam_path(userexam.exam)
+      exam = link_to userexam.exam.name, admin_exam_path(userexam.exam)
       exam += " - "
       exam += link_to "Go to exam", "/" + userexam.exam.hashid.to_s
       exam
     end            
     column :password
-    column :tmp_point
-    column :sum_point
+    column "Point", :sum_point
     column :note   
     column "Actions" do |userexam|
       if userexam.tmp_point != nil && userexam.sum_point == nil
@@ -41,8 +41,20 @@ ActiveAdmin.register Userexam do
       link += link_to "Delete", admin_userexam_path(userexam), :method => :delete, :data => { confirm: "Are you sure?" }
     end              
   end
-  
-  config.per_page = 20
+
+  collection_action :index, :method => :get do
+      scope = Userexam.getByLastExam
+
+      @collection = scope.page() if params[:q].blank?
+      @search = scope.metasearch(clean_search_params(params[:q]))
+      @search.exam_id_eq = Exam.last.id if params[:q].blank?
+
+      # respond_to do |format|
+      #   format.html {
+      #     render "my/own/template" # or "active_admin/resource/index"
+      #   }
+      # end
+  end
 
   show do
   	render "show"

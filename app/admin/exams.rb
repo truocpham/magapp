@@ -10,11 +10,10 @@ ActiveAdmin.register Exam do
   # end
   index do           
     selectable_column                 
-    column :name                     
+    column :name do |exam|
+      link_to exam.name, "/" + exam.hashid.to_s
+    end                     
     column :description
-    column "Link of exam" do |exam|
-      link_to "Go to exam", "/" + exam.hashid.to_s
-    end           
     column :time_exam             
     default_actions                   
   end
@@ -30,11 +29,25 @@ ActiveAdmin.register Exam do
   filter :created_at
   filter :updated_at
 
+  collection_action :index, :method => :get do
+      scope = Exam.getByLastCategory
+
+      @collection = scope.page() if params[:q].blank?
+      @search = scope.metasearch(clean_search_params(params[:q]))
+      @search.category_id_eq = Category.last.id if params[:q].blank?
+
+      # respond_to do |format|
+      #   format.html {
+      #     render "my/own/template" # or "active_admin/resource/index"
+      #   }
+      # end
+  end
+
   show do
     @exam = Exam.find(params[:id])
     render 'show'
   end
-
+  
   controller do
 
     def update
@@ -49,14 +62,18 @@ ActiveAdmin.register Exam do
       end
     end
 
+    def new
+      @exam = Exam.new(:on_answer => 0, :o_answer => 0, :m_answer => 0)
+    end
+
     def create
       @exam = Exam.new(params[:exam])
 
       if @exam.valid?
     
       # create random questions
-        question1 = Question.select("id").order("RAND()").limit(@exam.on_answer).where("type_question = ? AND category_id = ?", "One correct answer", @exam.category_id);
-        question2 = Question.select("id").order("RAND()").limit(@exam.m_answer).where("type_question = ? AND category_id = ?", "More correct answers", @exam.category_id);
+        question1 = Question.select("id").order("RAND()").limit(@exam.on_answer).where("type_question = ? AND category_id = ?", "Single choice", @exam.category_id);
+        question2 = Question.select("id").order("RAND()").limit(@exam.m_answer).where("type_question = ? AND category_id = ?", "Multiple choices", @exam.category_id);
         question3 = Question.select("id").order("RAND()").limit(@exam.o_answer).where("type_question = ? AND category_id = ?", "Open answer", @exam.category_id);
 
         @questions = question1 + question2 + question3
@@ -106,5 +123,9 @@ ActiveAdmin.register Exam do
       r
     end
 
+  end
+
+  action_item :only => :show do
+    link_to "New Exam", new_admin_exam_path
   end
 end
