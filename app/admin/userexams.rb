@@ -45,7 +45,7 @@ ActiveAdmin.register Userexam do
   collection_action :index, :method => :get do
       scope = Userexam.getByLastExam
 
-      @collection = scope.page() if params[:q].blank?
+      @collection = scope.page(params[:page]).per(20) if params[:q].blank?
       @search = scope.metasearch(clean_search_params(params[:q]))
       @search.exam_id_eq = Exam.last.id if params[:q].blank?
 

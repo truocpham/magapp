@@ -21,7 +21,7 @@ ActiveAdmin.register Category do
   collection_action :index, :method => :get do
       scope = Category.getByLastSubject
 
-      @collection = scope.page() if params[:q].blank?
+      @collection = scope.page(params[:page]).per(20) if params[:q].blank?
       @search = scope.metasearch(clean_search_params(params[:q]))
       @search.subject_id_eq = Subject.last.id if params[:q].blank?
 

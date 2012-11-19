@@ -32,7 +32,7 @@ ActiveAdmin.register Exam do
   collection_action :index, :method => :get do
       scope = Exam.getByLastCategory
 
-      @collection = scope.page() if params[:q].blank?
+      @collection = scope.page(params[:page]).per(20) if params[:q].blank?
       @search = scope.metasearch(clean_search_params(params[:q]))
       @search.category_id_eq = Category.last.id if params[:q].blank?
 

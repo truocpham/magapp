@@ -22697,3 +22697,81 @@ Served asset /rich/images.png - 304 Not Modified (0ms)
 
 Started GET "/assets/ckeditor/plugins/showblocks/images/block_p.png" for 10.10.10.211 at 2012-11-13 16:58:51 +0700
 Served asset /ckeditor/plugins/showblocks/images/block_p.png - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/admin/admin_users" for 127.0.0.1 at 2012-11-14 15:38:22 +0700
+Processing by Admin::AdminUsersController#index as HTML
+Compiled active_admin.css  (1600ms)  (pid 949)
+Compiled active_admin/print.css  (106ms)  (pid 949)
+Compiled jquery.js  (3ms)  (pid 949)
+Compiled jquery-ui.js  (2ms)  (pid 949)
+Compiled jquery_ujs.js  (0ms)  (pid 949)
+Compiled active_admin/lib/namespace.js  (248ms)  (pid 949)
+Compiled active_admin/components/jquery.aa.checkbox-toggler.js  (96ms)  (pid 949)
+Compiled active_admin/components/jquery.aa.dropdown-menu.js  (113ms)  (pid 949)
+Compiled active_admin/components/jquery.aa.popover.js  (117ms)  (pid 949)
+Compiled active_admin/components/jquery.aa.table-checkbox-toggler.js  (81ms)  (pid 949)
+Compiled active_admin/pages/application.js  (123ms)  (pid 949)
+Compiled active_admin/pages/batch_actions.js  (79ms)  (pid 949)
+Compiled active_admin/application.js  (902ms)  (pid 949)
+Compiled active_admin/base.js  (986ms)  (pid 949)
+Compiled rich/editor/ckeditor_path.js  (0ms)  (pid 949)
+Compiled ckeditor/ckeditor.js  (51ms)  (pid 949)
+Compiled ckeditor/adapters/jquery.js  (0ms)  (pid 949)
+Compiled rich/editor/rich_editor.js  (80ms)  (pid 949)
+Compiled rich/editor/rich_picker.js  (0ms)  (pid 949)
+Compiled rich/base.js  (208ms)  (pid 949)
+Compiled rich.js  (225ms)  (pid 949)
+Compiled active_admin.js  (1221ms)  (pid 949)
+  Rendered /Users/vietphan/.rvm/gems/ruby-1.9.3-p194/gems/activeadmin-0.5.0/app/views/active_admin/resource/index.html.arb (17961.1ms)
+Completed 200 OK in 18000ms (Views: 17969.4ms | ActiveRecord: 2.7ms)
+
+
+Started GET "/assets/active_admin-50f0c265e21aed190e764da9b9e11fa1.js" for 127.0.0.1 at 2012-11-14 15:38:40 +0700
+Served asset /active_admin-50f0c265e21aed190e764da9b9e11fa1.js - 200 OK (0ms)
+
+
+Started GET "/assets/active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif" for 127.0.0.1 at 2012-11-14 15:38:40 +0700
+Served asset /active_admin/nested_menu_arrow-dcb32755d9740e23965a1e76bb945ce9.gif - 200 OK (0ms)
+
+
+Started GET "/assets/active_admin/nested_menu_arrow_dark-f9fe6b6a563b7b15f3cd1be4e98d1ce0.gif" for 127.0.0.1 at 2012-11-14 15:38:43 +0700
+Served asset /active_admin/nested_menu_arrow_dark-f9fe6b6a563b7b15f3cd1be4e98d1ce0.gif - 200 OK (0ms)
+
+
+Started GET "/admin/categories" for 127.0.0.1 at 2012-11-14 15:38:43 +0700
+Processing by Admin::CategoriesController#index as HTML
+  Rendered /Users/vietphan/.rvm/gems/ruby-1.9.3-p194/gems/activeadmin-0.5.0/app/views/active_admin/resource/index.html.arb (112.1ms)
+Completed 200 OK in 137ms (Views: 115.5ms | ActiveRecord: 5.2ms)
+
+
+Started GET "/admin/questions" for 127.0.0.1 at 2012-11-14 15:38:45 +0700
+Processing by Admin::QuestionsController#index as HTML
+  Rendered /Users/vietphan/.rvm/gems/ruby-1.9.3-p194/gems/activeadmin-0.5.0/app/views/active_admin/resource/index.html.arb (109.7ms)
+Completed 200 OK in 286ms (Views: 112.7ms | ActiveRecord: 166.0ms)
+
+
+Started GET "/admin/questions?utf8=%E2%9C%93&q%5Bcategory_id_eq%5D=1&q%5Bcontent_contains%5D=&q%5Bmark_eq%5D=&q%5Btype_question_contains%5D=&q%5Bcreated_at_gte%5D=&q%5Bcreated_at_lte%5D=&q%5Bupdated_at_gte%5D=&q%5Bupdated_at_lte%5D=&commit=Filter" for 127.0.0.1 at 2012-11-14 15:38:51 +0700
+Processing by Admin::QuestionsController#index as HTML
+  Parameters: {"utf8"=>"✓", "q"=>{"category_id_eq"=>"1", "content_contains"=>"", "mark_eq"=>"", "type_question_contains"=>"", "created_at_gte"=>"", "created_at_lte"=>"", "updated_at_gte"=>"", "updated_at_lte"=>""}, "commit"=>"Filter"}
+  Rendered /Users/vietphan/.rvm/gems/ruby-1.9.3-p194/gems/activeadmin-0.5.0/app/views/active_admin/resource/index.html.arb (206.8ms)
+Completed 200 OK in 215ms (Views: 209.1ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/admin/subjects" for 127.0.0.1 at 2012-11-14 15:38:53 +0700
+Processing by Admin::SubjectsController#index as HTML
+  Rendered /Users/vietphan/.rvm/gems/ruby-1.9.3-p194/gems/activeadmin-0.5.0/app/views/active_admin/resource/index.html.arb (83.0ms)
+Completed 200 OK in 89ms (Views: 85.1ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/admin/userexams" for 127.0.0.1 at 2012-11-14 15:38:54 +0700
+Processing by Admin::UserexamsController#index as HTML
+  Rendered /Users/vietphan/.rvm/gems/ruby-1.9.3-p194/gems/activeadmin-0.5.0/app/views/active_admin/resource/index.html.arb (131.9ms)
+Completed 200 OK in 155ms (Views: 134.5ms | ActiveRecord: 5.0ms)
+
+
+Started GET "/admin/admin_users" for 127.0.0.1 at 2012-11-14 15:38:56 +0700
+Processing by Admin::AdminUsersController#index as HTML
+  Rendered /Users/vietphan/.rvm/gems/ruby-1.9.3-p194/gems/activeadmin-0.5.0/app/views/active_admin/resource/index.html.arb (53.6ms)
+Completed 200 OK in 58ms (Views: 55.4ms | ActiveRecord: 0.8ms)
