@@ -26,6 +26,15 @@ ActiveAdmin.register Userexam do
       exam
     end            
     column :password
+    #column "Password" do |userexam|
+    #  :password
+    #end
+    column "Email" do |userexam|
+      form do |f|
+        #f.input :id => "id_name"
+        f.input :class => "id_name"
+      end
+    end
     column "Point", :sum_point
     column :note   
     column "Actions" do |userexam|

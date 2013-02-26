@@ -57,4 +57,37 @@ $(document).ready(function() {
 			$(this).parent().remove();
 			
 	});
+	
+	$(document).ready(function(){
+		$(".id_name").focus(function(){
+    		$(this).css("background-color","#cccccc");
+  		});
+  		$(".id_name").blur(function(){
+    		$(this).css("background-color","#ffffff");
+  		});
+  		$(".id_name").blur(function(){
+  			//alert($(".pass_name").text());
+  			//$(this).remove().before("<b>Before</b>");
+  			//$(this).remove();
+  			if ($(this).val().length > 0)
+  			{
+	  			$(this).before("<a href='http://www.w3schools.com'>Send to email</a>");
+	  			$(this).remove();
+	  		}
+  		});
+
+		//$(".id_name").blur(function(){
+		    //alert("This input field has lost its focus.");
+		//	alert($(this).val());
+		//});
+	});
+	
+	/*
+	$.noConflict();
+	jQuery(document).ready(function(){
+  		jQuery(".id_name").blur(function(){
+    		jQuery(".id_name").val("<a href='http://www.w3schools.com'>Hello world!</a>");
+  		});
+	});
+	*/
 });
