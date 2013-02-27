@@ -30,9 +30,11 @@ ActiveAdmin.register Userexam do
     #  :password
     #end
     column "Email" do |userexam|
+      content = userexam.password + "-" + "localhost:3000/" + userexam.exam.hashid.to_s
       form do |f|
         #f.input :id => "id_name"
-        f.input :class => "id_name"
+        f.input :class => "id_name", :label => content
+        #f.hidden :id => "h_name", :value => "Passssss"
       end
     end
     column "Point", :sum_point

@@ -57,7 +57,7 @@ $(document).ready(function() {
 			$(this).parent().remove();
 			
 	});
-	
+	/*
 	$(document).ready(function(){
 		$(".id_name").focus(function(){
     		$(this).css("background-color","#cccccc");
@@ -81,7 +81,7 @@ $(document).ready(function() {
 		//	alert($(this).val());
 		//});
 	});
-	
+	*/
 	/*
 	$.noConflict();
 	jQuery(document).ready(function(){
@@ -90,4 +90,30 @@ $(document).ready(function() {
   		});
 	});
 	*/
+});
+
+$(document).ready(function(){
+	var pass;
+	var link;
+		$(".id_name").change(function(){
+		email=$(this).val();
+		pass_link=$(this).attr("label");
+		$(this).replaceWith('<a href="javascript:void()" class="cd">'+email+'</a>');      
+		arr=pass_link.split("-");
+		pass=arr[0];
+		link=arr[1];
+		});
+		
+		
+		$(".cd").live('click', function(){
+			$.ajax ({
+				type: "POST",
+				url: "/mail/sendMail",
+				data: {e: email, p: pass, l: link},
+				success: function(html) {
+					alert(pass+ "-" +email + "-" + link);
+					//$("#page_title").html(html);
+				}				
+			}); 	      		         
+		});
 });

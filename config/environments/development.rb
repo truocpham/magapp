@@ -14,7 +14,7 @@ DemoActive::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -34,4 +34,15 @@ DemoActive::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  # Configure send gmail
+  ActionMailer::Base.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'mail.gmail.com',
+    :user_name            => 'khactruoc09dce@gmail.com',
+    :password             => 'phamthuytuyen',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  
+  }
 end

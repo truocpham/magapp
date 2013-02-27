@@ -4,6 +4,8 @@ DemoActive::Application.routes.draw do
   match "admin/userexams/detail/:id", to: "admin/userexams#detail"
 
   post "ajax/save_time"
+  
+  post "mail/sendMail"
 
   get "maintest/jstest"
   
