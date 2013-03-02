@@ -6,6 +6,8 @@ DemoActive::Application.routes.draw do
   post "ajax/save_time"
   
   post "mail/sendMail"
+  
+  post "mail/insertMail"
 
   get "maintest/jstest"
   

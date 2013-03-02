@@ -54,66 +54,90 @@ $(document).ready(function() {
 	});
 
 	$("a[id^=link_answer]").live("click", function() {
-			$(this).parent().remove();
+		$(this).parent().remove();
 			
 	});
-	/*
-	$(document).ready(function(){
-		$(".id_name").focus(function(){
-    		$(this).css("background-color","#cccccc");
-  		});
-  		$(".id_name").blur(function(){
-    		$(this).css("background-color","#ffffff");
-  		});
-  		$(".id_name").blur(function(){
-  			//alert($(".pass_name").text());
-  			//$(this).remove().before("<b>Before</b>");
-  			//$(this).remove();
-  			if ($(this).val().length > 0)
-  			{
-	  			$(this).before("<a href='http://www.w3schools.com'>Send to email</a>");
-	  			$(this).remove();
-	  		}
-  		});
-
-		//$(".id_name").blur(function(){
-		    //alert("This input field has lost its focus.");
-		//	alert($(this).val());
-		//});
-	});
-	*/
-	/*
-	$.noConflict();
-	jQuery(document).ready(function(){
-  		jQuery(".id_name").blur(function(){
-    		jQuery(".id_name").val("<a href='http://www.w3schools.com'>Hello world!</a>");
-  		});
-	});
-	*/
 });
 
 $(document).ready(function(){
-	var pass;
+	var password;
 	var link;
-		$(".id_name").change(function(){
-		email=$(this).val();
-		pass_link=$(this).attr("label");
-		$(this).replaceWith('<a href="javascript:void()" class="cd">'+email+'</a>');      
-		arr=pass_link.split("-");
-		pass=arr[0];
-		link=arr[1];
-		});
-		
-		
-		$(".cd").live('click', function(){
+	var email;
+	var userId;
+	var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	//var i = "<i class='icon-pencil'></i>";
+	$(".id_name").focus(function(){
+    	$(this).css("background-color","#cccccc");
+  	});
+  	$(".id_name").blur(function(){
+    	$(this).css("background-color","#ffffff");
+  	});
+	$(".id_name").change (function(){
+		//$(this).before(i);
+		email = $(this).val();
+		pass_link = $(this).attr("label");
+		if (regex.test(email)) {
+			$(this).replaceWith('<a href="javascript:void()" class="cd" label='+pass_link+'>'+email+'</a>');      
+			arr = pass_link.split("-");
+			password = arr[0];
+			link = arr[1];
+			userId = arr[2];
+			//alert(password+"-"+link+"-"+userId);
 			$.ajax ({
 				type: "POST",
-				url: "/mail/sendMail",
-				data: {e: email, p: pass, l: link},
+				url: "/mail/insertMail",
+				data: {email: email, user_id: userId},
 				success: function(html) {
-					alert(pass+ "-" +email + "-" + link);
-					//$("#page_title").html(html);
-				}				
-			}); 	      		         
-		});
+					//alert("Insert successful!");
+				}
+			});
+		} else {
+			alert("No validates email!");
+		}
+		//$(this).after(i);
+	});
+	//$(".id_name").after(i);	
+
+	$(".cd").live('click', function(){
+		email = $(this).text();
+		pass_link = $(this).attr("label");
+		arr = pass_link.split("-");
+		password = arr[0];
+		link = arr[1];
+		userId = arr[2];
+		//alert(email);
+		//alert(password+"-"+link+"-"+userId);
+		$.ajax ({
+			type: "POST",
+			url: "/mail/sendMail",
+			data: {email: email, password: password, link: link},
+			success: function(html) {
+				alert(password + "-" + email + "-" + link);
+				//$("#page_title").html(html);
+			}				
+		}); 	      		         
+	});
 });
+
+//Send mail from value database
+// $(document).ready(function(){
+// 	var pw, li, em, ui;
+// 	$(".class_email").click (function(){
+// 		//alert("Start!");
+// 		em=$(this).text();
+// 		pl=$(this).attr("label");
+// 		arr=pl.split("-");
+// 		pw=arr[0];
+// 		li=arr[1];
+// 		ui=arr[2];
+// 		alert(em);
+// 		$.ajax ({
+// 			type: "POST",
+// 			url: "/mail/sendMail",
+// 			data: {e: em, p: pw, l: li},
+// 			success: function(html) {
+// 				alert(pw + "-" + em + "- " + li);
+// 			}
+// 		});
+// 	});
+// });

@@ -26,15 +26,17 @@ ActiveAdmin.register Userexam do
       exam
     end            
     column :password
-    #column "Password" do |userexam|
-    #  :password
-    #end
     column "Email" do |userexam|
-      content = userexam.password + "-" + "localhost:3000/" + userexam.exam.hashid.to_s
-      form do |f|
-        #f.input :id => "id_name"
-        f.input :class => "id_name", :label => content
-        #f.hidden :id => "h_name", :value => "Passssss"
+      #userId = userexam.id
+      content = userexam.password + "-" + "localhost:3000/" + userexam.exam.hashid.to_s + "-" + userexam.id.to_s
+      if (userexam.email==nil)
+        form do |f|
+          f.input :class => "id_name", :label => content
+        end
+      else
+        form do |f|
+           link_to userexam.email, 'javascript:void()', :class => "cd", :label => content
+        end
       end
     end
     column "Point", :sum_point

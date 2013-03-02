@@ -35,13 +35,13 @@ DemoActive::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   
-  # Configure send gmail
+  # Configure send gmail # cau hinh cho delivery_error: true
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'mail.gmail.com',
-    :user_name            => 'khactruoc09dce@gmail.com',
-    :password             => 'phamthuytuyen',
+    :user_name            => 'itsp09cntt2@gmail.com',
+    :password             => 'phanhoangthach',
     :authentication       => 'plain',
     :enable_starttls_auto => true  
   }
