@@ -12,6 +12,10 @@
           <td><%= @userexam.name %></td>
         </tr>
         <tr>
+          <th>Email</th>
+          <td><%= @userexam.email %></td>
+        </tr>
+        <tr>
           <th>Exam</th>
           <td><%= @userexam.exam.name %></td>
         </tr>
@@ -60,6 +64,57 @@
           <td><%= @userexam.updated_at %></td>
         </tr>
         
+      </table>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h3>User's Test Details</h3>
+  <div class="panel_contents">
+    <div class="attributes_table user" id="attributes_table_user_2">
+      <table border="0" cellspacing="0" cellpadding="0">
+      	<% i=1 %>
+          <% @single_ques.each do |a| %>
+            <tr>
+              <td>
+                <strong><%= i.to_s+") " %>Question (Single choice):</strong><%= a['qContent'].html_safe %>
+                <% i=i+1 %>
+                <strong><i>User's answer: </i></strong><br>
+                <%= a['aContent'] %><br/>
+         		<strong><u>Answer:</u></strong><br />
+         		<%= a['trueAnswer'] %>
+              </td>
+            </tr>
+          <% end %>
+
+          <% @multi_ques.each do |a| %>
+            <tr>
+              <td>
+                <strong><%= i.to_s+") " %>Question (Multiple choice):</strong><%= a['qContent'].html_safe %>
+                <% i=i+1 %>
+                <strong><i>User's answer: </i></strong><br>
+                <% a['aContent'].each do |ans| %>                  
+                  <%= '- '+ans %><br>
+                <% end %>
+                <strong><u>Answer:</u></strong><br>
+                <% a['trueAnswer'].each do |ans| %>                  
+                  <%= '- '+ans %><br>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+
+          <% @open_ques.each do |a| %>
+            <tr>
+              <td>
+                <strong><%= i.to_s+") " %>Question (Open question):</strong><%= a['qContent'].html_safe %>
+                <% i=i+1 %>
+                <strong><i>User's answer: </i></strong><br>
+                <%= a['aContent']%><br/>
+              </td>
+            </tr>
+          <% end %>
       </table>
     </div>
   </div>

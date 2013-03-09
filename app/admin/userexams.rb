@@ -77,9 +77,9 @@ ActiveAdmin.register Userexam do
     def show
       @point = Userexam.find(params[:id])
       if @point.sum_point == nil
-      @arr_urs_answer = Userexam.joins(:tmpanswers => {:question => :answers})
-          .select("tmpanswers.question_id, questions.content, tmpanswers.con_answer, answers.content as answer")
-          .where("userexams.id = ?", params[:id])
+        @arr_urs_answer = Userexam.joins(:tmpanswers => {:question => :answers})
+            .select("tmpanswers.question_id, questions.type_question, questions.content, tmpanswers.con_answer, answers.content as answer")
+            .where("userexams.id = ?", params[:id])
       else
         redirect_to '/admin/userexams', :notice => 'This user have been finished.'
       end
@@ -103,16 +103,65 @@ ActiveAdmin.register Userexam do
       end
       userexam = Userexam.find(id)
       if userexam.update_attributes({ "sum_point" => point })
-        @tmpanswer = Tmpanswer.where("userexam_id = ?", id)
-        @tmpanswer.each do |t|
-        	t.destroy
-        end
+        # @tmpanswer = Tmpanswer.where("userexam_id = ?", id)
+        # @tmpanswer.each do |t|
+        # 	t.destroy
+        # end
         redirect_to '/admin/userexams', :notice => 'This user have been finished.'
       end
     end
 
     def detail
     	@userexam = Userexam.find(params[:id])
+      @infq = Question.joins(:tmpanswers)
+        .select("con_answer, content, type_question, questions.id as id")
+        .where("tmpanswers.userexam_id = ?", params[:id])
+
+      @single_ques = Array.new
+      @open_ques = Array.new
+      @multi_ques = Array.new
+      i = j = k = 0 # index of three array above
+      @infq.each do |a|        
+        #select true answer
+        ans_true = Answer.select('content').where('answers.question_id = ? and answers.mark_type = ?', a['id'], 1)
+        #single choice question
+        if a['type_question'] == "Single choice"
+          #select content of user's answer
+          single = Answer.select('content').where('answers.question_id = ? and answers.id = ?', a['id'], a['con_answer'].to_i)          
+          
+          @single_ques[i] = Hash.new
+          @single_ques[i]['qContent'] = a['content']
+          @single_ques[i]['aContent'] = single[0].content
+          @single_ques[i]['trueAnswer'] = ans_true[0].content
+          i = i + 1
+        #open question
+        elsif a['type_question'] == "Open answer"
+          # open = Answer.select('content').where('answers.question_id = ?', a['id'])
+          @open_ques[j] = Hash.new
+          @open_ques[j]['qContent'] = a['content']
+          @open_ques[j]['aContent'] = a['con_answer']
+          @open_ques[j]['trueAnswer'] = ans_true[0].content
+          j = j + 1
+
+          else #multichoice question
+            userchoices = a['con_answer'].split(" ").map{ |s| s.to_i }
+            userchoices.join(",")
+            @multi_ques[k]=Hash.new
+            @multi_ques[k]['qContent'] = a['content']# question content
+
+            @multi_ques[k]['aContent'] = Array.new #answers of user
+            multi = Answer.select('content').where('answers.question_id = ? and answers.id in (?)', a['id'], userchoices)
+            for tmp in 0 ... multi.length do
+              @multi_ques[k]['aContent'][tmp] = multi[tmp].content
+            end
+
+            @multi_ques[k]['trueAnswer'] = Array.new #true answers
+            for tmp in 0 ... ans_true.length do
+              @multi_ques[k]['trueAnswer'][tmp] = ans_true[tmp].content
+            end
+            k = k + 1
+          end
+        end               
     end
   end
 end

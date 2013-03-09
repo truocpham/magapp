@@ -65,7 +65,6 @@ $(document).ready(function(){
 	var email;
 	var userId;
 	var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	//var i = "<i class='icon-pencil'></i>";
 	$(".id_name").focus(function(){
     	$(this).css("background-color","#cccccc");
   	});
@@ -73,7 +72,6 @@ $(document).ready(function(){
     	$(this).css("background-color","#ffffff");
   	});
 	$(".id_name").change (function(){
-		//$(this).before(i);
 		email = $(this).val();
 		pass_link = $(this).attr("label");
 		if (regex.test(email)) {
@@ -88,15 +86,13 @@ $(document).ready(function(){
 				url: "/mail/insertMail",
 				data: {email: email, user_id: userId},
 				success: function(html) {
-					//alert("Insert successful!");
+					alert("Insert successful!");
 				}
 			});
 		} else {
 			alert("No validates email!");
 		}
-		//$(this).after(i);
 	});
-	//$(".id_name").after(i);	
 
 	$(".cd").live('click', function(){
 		email = $(this).text();

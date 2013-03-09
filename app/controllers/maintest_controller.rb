@@ -50,7 +50,7 @@ class MaintestController < HomeController
         params = request.POST
         params.shift
         params.shift
-        id = params[:id]
+        id = params[:id] #id of userexam
         exam = Exam.find_by_hashid(params[:hashid])
         params.shift
         params.shift
@@ -62,22 +62,40 @@ class MaintestController < HomeController
         userexam = Userexam.find(id)
 
         params.each do |key, value|
-          question = Question.select("mark, type_question").where("id = ?", key)
-
+          question = Question.select("mark, type_question").where("id = ?", key)          
+          tmpanswer = Tmpanswer.new #
+          tmpanswer.userexam_id = userexam.id
+          tmpanswer.question_id = key
           # Multiple choices
           if question[0].type_question == "Multiple choices"
+            ans = ""
+            for j in 0 ... value.length
+              # user_answer = UserAnswer.new #save test of user
+              # user_answer.userexam_id = id
+              # user_answer.question_id = key
+              # user_answer.answer_id = value[j]
+              # user_answer.save
+              ans += value[j].to_s + " "
+            end
+            tmpanswer.con_answer = ans
+            tmpanswer.save
 
             value.join(",")
             answer = Answer.select("mark_type").where("id in (?)", value)
             check = 1
             if answer.length > 1
               for i in 0 ... answer.length
-                check &= answer[i].mark_type
+                check &= answer[i].mark_type # x &= y => x = x & y
               end
               if check == 1
                 point += question[0].mark
               end
             end
+            #tmpanswer = Tmpanswer.new
+            #tmpanswer.userexam_id = userexam.id
+            #tmpanswer.question_id = key
+            #tmpanswer.con_answer = value.to_s
+            #tmpanswer.save
 
           # Open answer
           elsif question[0].type_question == "Open answer"
@@ -86,9 +104,9 @@ class MaintestController < HomeController
               .select("questions.id")
               .where("questions.id = ?", key)
 
-            tmpanswer = Tmpanswer.new
-            tmpanswer.userexam_id = userexam.id
-            tmpanswer.question_id = answer[0].id
+            #tmpanswer = Tmpanswer.new
+            # tmpanswer.userexam_id = userexam.id
+            # tmpanswer.question_id = answer[0].id
             tmpanswer.con_answer = value
             tmpanswer.save
 
@@ -98,6 +116,16 @@ class MaintestController < HomeController
             if answer[0] != nil && answer[0].mark_type == 1
                 point += question[0].mark
             end
+            #tmpanswer = Tmpanswer.new
+            #tmpanswer.userexam_id = userexam.id
+            #tmpanswer.question_id = key
+            tmpanswer.con_answer = value.to_s
+            tmpanswer.save
+            #useranswer = Useranswer.new
+            #useranswer.userexam_id = userexam.id
+            #useranswer.question_id = answer[0].id
+            #useranswer.answer_id = value
+            #useranswer.save
           end
         end
 

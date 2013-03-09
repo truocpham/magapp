@@ -116,6 +116,14 @@ ActiveRecord::Schema.define(:version => 20130301033704) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "useranswers", :force => true do |t|
+    t.integer  "userexam_id"
+    t.integer  "question_id"
+    t.integer  "answer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "userexams", :force => true do |t|
     t.string   "name"
     t.integer  "exam_id"
