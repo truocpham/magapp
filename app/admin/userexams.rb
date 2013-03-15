@@ -27,7 +27,6 @@ ActiveAdmin.register Userexam do
     end            
     column :password
     column "Email" do |userexam|
-      #userId = userexam.id
       content = userexam.password + "-" + "localhost:3000/" + userexam.exam.hashid.to_s + "-" + userexam.id.to_s
       if (userexam.email==nil)
         form do |f|

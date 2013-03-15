@@ -2,8 +2,8 @@ class Exam < ActiveRecord::Base
   scope :recent, lambda {|no| limit(5).order('created_at desc')}
   scope :getByLastCategory, lambda { where("category_id = ?", Category.last.id) }
   
-  attr_accessible :category_id, :description, :name, :hashid, :on_answer, :o_answer, :m_answer, :q_user, :time_exam
-  attr_accessor :on_answer, :o_answer, :m_answer, :q_user
+  attr_accessible :category_id, :description, :name, :hashid, :on_answer, :o_answer, :m_answer, :q_user, :time_exam, :level
+  attr_accessor :on_answer, :o_answer, :m_answer, :q_user, :level
 
   belongs_to :category
   has_many :examquestions, :dependent => :destroy

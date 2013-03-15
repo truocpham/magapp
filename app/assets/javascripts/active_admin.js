@@ -115,25 +115,22 @@ $(document).ready(function(){
 	});
 });
 
-//Send mail from value database
-// $(document).ready(function(){
-// 	var pw, li, em, ui;
-// 	$(".class_email").click (function(){
-// 		//alert("Start!");
-// 		em=$(this).text();
-// 		pl=$(this).attr("label");
-// 		arr=pl.split("-");
-// 		pw=arr[0];
-// 		li=arr[1];
-// 		ui=arr[2];
-// 		alert(em);
-// 		$.ajax ({
-// 			type: "POST",
-// 			url: "/mail/sendMail",
-// 			data: {e: em, p: pw, l: li},
-// 			success: function(html) {
-// 				alert(pw + "-" + em + "- " + li);
-// 			}
-// 		});
-// 	});
-// });
+//$(document).ready(function(){
+//	var arrayCheckbox = new Array;
+//
+//	$(".create_c").click(function() {
+//	    arrayCheckbox=[];
+//	    $('.chk:checked').each(function() {
+//	        arrayCheckbox.push($(this).val());
+//	    });
+//	    $.ajax ({
+//	    	type: "POST",
+//			url: "admin/exams/create",
+//			data: {arrayCheckbox: arrayCheckbox},
+//			success: function(html) {
+//				alert("OK");
+//				//$("#page_title").html(html);
+//			}
+//	    });
+//	});
+//});

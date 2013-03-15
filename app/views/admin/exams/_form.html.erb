@@ -23,7 +23,9 @@
       <%= f.input :m_answer, :label => "No. of \"Multiple choices\"", :as => :number %>
       <%= f.input :o_answer, :label => "No. of \"Open answer\"", :as => :number %>
       <%= f.input :q_user, :label => "No. of candidates", :as => :number %>
+      <%= f.input :level, :as => :check_boxes, :collection => {"None" => "0", "Low" => "1", "Medium" => "2", "Hight" => "3"} %>
     <% end %>
+    
     <%= f.input :time_exam, :label => "Time Exam (minutes)" %>
     <%= f.input :description %>
   <% end %>

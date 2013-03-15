@@ -13,9 +13,9 @@
 <%= semantic_form_for [:admin, @question] do |f| %>
   <%= error_messages_for :answer %><br />
   <%= f.inputs :name => "Question Details" do %>
-  <li class="select input option">
-  	<%= label_tag :subject_id, "Subject", :class => " label" %>
-    <% if params[:subject] != nil && params[:subject]['id'] != ''
+    <li class="select input option">
+  	  <%= label_tag :subject_id, "Subject", :class => " label" %>
+      <% if params[:subject] != nil && params[:subject]['id'] != ''
         @subject = Subject.new
         @subject.id = params[:subject]['id'].to_i
         @categories = Category.where('subject_id = ?', @subject.id)
@@ -23,20 +23,22 @@
         @categories = Category.where('subject_id = ?', @subject.id)
       else 
         @categories = []
-       %>
-    <% end %>
-    <%= collection_select(:subject, :id, Subject.all, :id, :name, {:prompt => "Select Subject"}) %>
-  </li>
+      %>
+      <% end %>
+      <%= collection_select(:subject, :id, Subject.all, :id, :name, {:prompt => "Select Subject"}) %>
+    </li>
 
     <%= f.input :category, :as => :select, :collection => @categories, :prompt => "Select Category" %>
     <%= f.input :content, :as => :rich, :config => { :width => '78%', :height => '300px' } %>
     <%= f.input :mark, :as => :number, :min => 0 %>
     <% if params[:action] == 'new' && params[:type_question] == nil %>
-    <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"], :selected => 'Single choice' %>
+      <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"], :include_blank => false %>
     <% else %>
       <%= f.input :type_question, :as => :select, :collection => ["Single choice", "Multiple choices", "Open answer"] %>
     <% end %>
-
+	
+	<%= f.input :level, :as => :select, :collection => {"None" => "0", "Low" => "1", "Medium"=> "2", "Hight" => "3"}, :include_blank => false %> 
+		
     <li class="input required">
       <div id="answer" class="field">
 
@@ -46,7 +48,7 @@
           link_answer_name = Array.new
           answer_name = Array.new
 
-          for i in 1 .. count
+          for i in 1 ... count
             if params[:answer] == nil && params[:action] == 'edit'
                 area_value[i - 1] = (@question.answers)[i - 1].content
             elsif params[:answer] != nil

@@ -8,6 +8,7 @@
 	created_at = @question.created_at.strftime("%B %d, %Y %H:%M")
 	updated_at = @question.updated_at.strftime("%B %d, %Y %H:%M")
 	answers = @question.answers
+	level = @question.level
 %>
         
 <div class="panel">
@@ -20,6 +21,10 @@
           <td><%= id %></td>
         </tr>
         <tr>
+          <th>Level</th>
+          <td><%= level %></td>
+        </tr>
+        <tr>
           <th>Content</th>
           <td><%= content %></td>
         </tr>
@@ -29,7 +34,7 @@
         	 	else
         	 		answer_t = "Answer"
         	 	end
-        	%>
+        %>
         <tr>
           <th><%= answer_t %></th>
           <td><%= answer.content %></td>
