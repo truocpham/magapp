@@ -134,23 +134,16 @@ $(document).ready(function(){
 $(document).ready(function() {
   $('.icon-star-empty').live('click',function(){
   	var tmp = $(this).parent().attr("label");
-  	// $(this).replaceWith("<i class='icon-star'></i>");
-  	$(this).parent().replaceWith("<a href='javascript:void(0)' id='"+tmp+"' label='"+tmp+"' class='starIcon' ><i class='icon-star'></i></a>");
+  	$(this).parent().replaceWith("<a href='javascript:void(0)' id='"+tmp+"' label='"+tmp+"'><i class='icon-star'></i></a>");
   	tmpId = "ID"+tmp;
     $(".scroll").append("<a id='"+tmpId+"' href='#"+tmp+"'>Question " + tmp + "</a><br>");
-   	// alert(tmp);
   });
   
   $('.icon-star').live('click',function(){
   	var tmp = $(this).parent().attr("label");
-  	// $(this).replaceWith("<i class='icon-star-empty'></i>");
-  	$(this).parent().replaceWith("<a href='javascript:void(0)' id='"+tmp+"' label='"+tmp+"' class='starIcon' ><i class='icon-star-empty'></i></a>");
-  	// var x = $(this).parent().attr("label");
-  	// alert(x);
+  	$(this).parent().replaceWith("<a href='javascript:void(0)' id='"+tmp+"' label='"+tmp+"'><i class='icon-star-empty'></i></a>");
   	$('#ID'+$(this).parent().attr("label")+'').next().detach();
   	$('#ID'+$(this).parent().attr("label")+'').detach();
-  	// $('#ID1').next().detach();
-  	// $('#ID1').detach();
   });
 })
 

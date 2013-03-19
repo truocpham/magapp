@@ -32,7 +32,7 @@
 	<% i = 0 %>  
 	<% @arr.each do |a| %>
 		<% i += 1 %>
-		<% a['question'].insert(-7, " &nbsp;&nbsp;(<b>" + a['type_question'] + "</b>)  <a href='javascript:void(0)' id='"+i.to_s+"' label='"+i.to_s+"' class='starIcon' ><i class='icon-star-empty'></i></a>") %>
+		<% a['question'].insert(-7, " &nbsp;&nbsp;(<b>" + a['type_question'] + "</b>)  <a href='javascript:void(0)' id='"+i.to_s+"' label='"+i.to_s+"'><i class='icon-star-empty'></i></a>") %>
 		<% a['question'].insert(3, "<strong>" + i.to_s + ") </strong>") %>
 		<%= a['question'].html_safe %>
 		<% a['answer'].each do |key, value| %>
