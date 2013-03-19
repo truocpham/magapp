@@ -2,11 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #txt {
-  font-family:verdana;
-  font-size:16pt;
-  font-weight:bold;
-  width: 85px;
-  position:fixed;
-  top: 0px;
-  right: 161px;
+  	font-family:verdana;
+  	font-size:16pt;
+  	font-weight:bold;
+ 	width: 85px;
+  	position:fixed;
+  	top: 0px;
+  	right: 161px;
+}
+
+.scroll {
+	font-family:verdana;
+	top: 80px;
+	right: 0px;
+	height: 200px;
+	width: 150px;
+	position: fixed;
+	overflow: auto;
+	border:2px solid #a1a1a1;
+	text-align: center;
 }

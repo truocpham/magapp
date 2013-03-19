@@ -15,4 +15,5 @@ class MailController < ApplicationController
   	userExams.email = email
   	userExams.save
   end
+
 end

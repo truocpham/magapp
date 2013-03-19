@@ -33,9 +33,13 @@ ActiveAdmin.register Userexam do
           f.input :class => "id_name", :label => content
         end
       else
-        form do |f|
-           link_to userexam.email, 'javascript:void()', :class => "cd", :label => content
-        end
+        # form do |f|
+           #link_to userexam.email, 'javascript:void()', :class => "cd", :label => content
+           tmp = link_to userexam.email, 'javascript:void()', :class => "cd", :label => content
+           tmp += " - "
+           tmp += link_to "Edit", 'javascript:void()', :class => "edit"
+           tmp 
+        # end
       end
     end
     column "Point", :sum_point

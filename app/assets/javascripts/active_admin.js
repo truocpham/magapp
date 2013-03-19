@@ -71,11 +71,11 @@ $(document).ready(function(){
   	$(".id_name").blur(function(){
     	$(this).css("background-color","#ffffff");
   	});
-	$(".id_name").change (function(){
+	$(".id_name").live('change',function(){
 		email = $(this).val();
 		pass_link = $(this).attr("label");
 		if (regex.test(email)) {
-			$(this).replaceWith('<a href="javascript:void()" class="cd" label='+pass_link+'>'+email+'</a>');      
+			$(this).parent().replaceWith('<td><a href="javascript:void()" class="cd" label="'+pass_link+'">'+email+'</a> - <a href="javascript:void()" class="edit">Edit</a></td>');      
 			arr = pass_link.split("-");
 			password = arr[0];
 			link = arr[1];
@@ -86,14 +86,14 @@ $(document).ready(function(){
 				url: "/mail/insertMail",
 				data: {email: email, user_id: userId},
 				success: function(html) {
-					alert("Insert successful!");
+					alert("Save email successful!");
 				}
 			});
 		} else {
-			alert("No validates email!");
+			alert("Email not validates!");
 		}
 	});
-
+	//--Send to mail
 	$(".cd").live('click', function(){
 		email = $(this).text();
 		pass_link = $(this).attr("label");
@@ -108,6 +108,7 @@ $(document).ready(function(){
 			url: "/mail/sendMail",
 			data: {email: email, password: password, link: link},
 			success: function(html) {
+				
 				alert(password + "-" + email + "-" + link);
 				//$("#page_title").html(html);
 			}				
@@ -115,22 +116,56 @@ $(document).ready(function(){
 	});
 });
 
-//$(document).ready(function(){
-//	var arrayCheckbox = new Array;
-//
-//	$(".create_c").click(function() {
-//	    arrayCheckbox=[];
-//	    $('.chk:checked').each(function() {
-//	        arrayCheckbox.push($(this).val());
-//	    });
-//	    $.ajax ({
-//	    	type: "POST",
-//			url: "admin/exams/create",
-//			data: {arrayCheckbox: arrayCheckbox},
-//			success: function(html) {
-//				alert("OK");
-//				//$("#page_title").html(html);
-//			}
-//	    });
-//	});
-//});
+//--Edit mail
+$(document).ready(function(){
+	var preEl;
+	$('.edit').live('click',function(){
+		content = $(this).prev().attr("label");
+		preEl = $(this).parent();
+		$(this).parent().replaceWith('<td><input class="id_name" label="'+content+'" /> - <a href="javascript:void()" class="return" >Return</a></td>');			
+	});
+	
+	$('.return').live('click',function() {
+		$(this).parent().replaceWith(preEl);
+	});	  
+});
+
+// Mark Question
+$(document).ready(function() {
+  $('.icon-star-empty').live('click',function(){
+  	var tmp = $(this).parent().attr("label");
+  	// $(this).replaceWith("<i class='icon-star'></i>");
+  	$(this).parent().replaceWith("<a href='javascript:void(0)' id='"+tmp+"' label='"+tmp+"' class='starIcon' ><i class='icon-star'></i></a>");
+  	tmpId = "ID"+tmp;
+    $(".scroll").append("<a id='"+tmpId+"' href='#"+tmp+"'>Question " + tmp + "</a><br>");
+   	// alert(tmp);
+  });
+  
+  $('.icon-star').live('click',function(){
+  	var tmp = $(this).parent().attr("label");
+  	// $(this).replaceWith("<i class='icon-star-empty'></i>");
+  	$(this).parent().replaceWith("<a href='javascript:void(0)' id='"+tmp+"' label='"+tmp+"' class='starIcon' ><i class='icon-star-empty'></i></a>");
+  	// var x = $(this).parent().attr("label");
+  	// alert(x);
+  	$('#ID'+$(this).parent().attr("label")+'').next().detach();
+  	$('#ID'+$(this).parent().attr("label")+'').detach();
+  	// $('#ID1').next().detach();
+  	// $('#ID1').detach();
+  });
+})
+
+
+// Thach PH
+// $(document).ready(function(){
+// 	$('.ansLater').click(function(){
+// 		ide = $(this).val();
+//     	if($(this).children().hasClass('icon-star-empty')){
+// 			ide = $(this).val();
+// 			$('.scroll').append("<a id='ID"+ide+"' href='#"+ide+"'>Quesion "+ide+"</a><br>");
+// 		}
+// 		else{
+// 			$('#ID'+$(this).val()+'').next().detach();
+// 			$('#ID'+$(this).val()+'').detach();
+// 		} 
+//   	});
+// });
